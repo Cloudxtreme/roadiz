@@ -437,7 +437,7 @@
             {{- block('choice_widget_options') -}}
         </select>
     {% else %}
-        <div class="rz-select">
+        <div class="rz-select" data-react="rz-select-container">
             <select {{ block('widget_attributes') }}>
                 {% if placeholder is not none -%}
                     <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder|trans({}, translation_domain) }}</option>

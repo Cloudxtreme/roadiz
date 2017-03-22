@@ -30,6 +30,9 @@
         <script src="{{ head.resourcesUrl }}js/vendor/modernizr.custom.50380.js"></script>
     </head>
     <body>
+
+        <div data-react="button-container" style="position: relative;z-index: 5000;"></div>
+
         <div id="main-container" >
             <div id="main-container-inner">
                 <section class="main-container-section" id="user-panel">
@@ -84,6 +87,7 @@
         <!-- ##debug_panel## -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ head.resourcesUrl }}js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
+        <script src="{{ head.resourcesUrl }}/dist/reactjs-bundle.js"></script>
         <script src="{{ head.resourcesUrl }}js/vendor/jquery-ui.custom.js"></script>
 
         {% for jsMin in themeServices.grunt.staticAssets.global.js %}
