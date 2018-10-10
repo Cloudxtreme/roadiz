@@ -30,6 +30,7 @@
  */
 namespace Themes\Rozier\Controllers\Nodes;
 
+use JMS\Serializer\Serializer;
 use RZ\Roadiz\Core\Entities\Node;
 use RZ\Roadiz\Core\Events\FilterNodeEvent;
 use RZ\Roadiz\Core\Events\NodeEvents;
@@ -63,7 +64,18 @@ class NodesUtilsController extends RozierApp
             ->find(Node::class, (int) $nodeId);
         $this->get('em')->refresh($existingNode);
 
-        $serializer = new NodeJsonSerializer($this->get('em'));
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
+
+        $response = new Response(
+            $serializer->serialize($existingNode, 'json'),
+            Response::HTTP_OK,
+            [
+                'content-type' => 'application/json'
+            ]
+        );
+
+       /* $serializer = new NodeJsonSerializer($this->get('em'));
         $node = $serializer->serialize([$existingNode]);
 
         $response = new Response(
@@ -78,7 +90,7 @@ class NodesUtilsController extends RozierApp
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 'node-' . $existingNode->getNodeName() . '-' . date("YmdHis") . '.rzn'
             )
-        ); // Rezo-Zero Type
+        ); // Rezo-Zero Type*/
 
         $response->prepare($request);
 

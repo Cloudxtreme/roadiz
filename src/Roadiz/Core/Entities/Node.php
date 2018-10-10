@@ -32,6 +32,7 @@ namespace RZ\Roadiz\Core\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use RZ\Roadiz\Core\AbstractEntities\AbstractDateTimedPositioned;
 use RZ\Roadiz\Core\AbstractEntities\LeafInterface;
 use RZ\Roadiz\Core\AbstractEntities\LeafTrait;
@@ -66,6 +67,10 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
     const ARCHIVED = 40;
     const DELETED = 50;
 
+    /**
+     * @var array
+     * @Serializer\Exclude
+     */
     public static $orderingFields = [
         'position' => 'position',
         'nodeName' => 'nodeName',
@@ -500,6 +505,7 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
      * @ORM\ManyToOne(targetEntity="RZ\Roadiz\Core\Entities\Node", inversedBy="children", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="parent_node_id", referencedColumnName="id", onDelete="CASCADE")
      * @var Node
+     * @Serializer\Exclude
      */
     protected $parent;
 
@@ -556,6 +562,7 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
     /**
      * @ORM\OneToMany(targetEntity="NodesCustomForms", mappedBy="node", fetch="EXTRA_LAZY")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     private $customForms = null;
 
@@ -571,6 +578,7 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
      * @ORM\ManyToMany(targetEntity="NodeType")
      * @ORM\JoinTable(name="stack_types")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     private $stackTypes = null;
 
@@ -669,6 +677,7 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
     /**
      * @ORM\OneToMany(targetEntity="NodesToNodes", mappedBy="nodeA")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     protected $bNodes;
 
@@ -685,6 +694,7 @@ class Node extends AbstractDateTimedPositioned implements LeafInterface
     /**
      * @ORM\OneToMany(targetEntity="NodesToNodes", mappedBy="nodeB")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     protected $aNodes;
 

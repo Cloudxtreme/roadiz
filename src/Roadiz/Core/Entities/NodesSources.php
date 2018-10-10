@@ -35,6 +35,7 @@ use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use RZ\Roadiz\Core\AbstractEntities\AbstractEntity;
 
 /**
@@ -52,7 +53,10 @@ use RZ\Roadiz\Core\AbstractEntities\AbstractEntity;
  */
 class NodesSources extends AbstractEntity implements ObjectManagerAware
 {
-    /** @var ObjectManager */
+    /**
+     * @var ObjectManager
+     * @Serializer\Exclude
+     */
     protected $objectManager;
 
     /**
@@ -107,6 +111,7 @@ class NodesSources extends AbstractEntity implements ObjectManagerAware
      * @ORM\JoinColumn(name="translation_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $translation;
+
     /**
      * @return Translation
      */
@@ -195,6 +200,7 @@ class NodesSources extends AbstractEntity implements ObjectManagerAware
     /**
      * @ORM\OneToMany(targetEntity="RZ\Roadiz\Core\Entities\Log", mappedBy="nodeSource")
      * @ORM\OrderBy({"datetime" = "DESC"})
+     * @Serializer\Exclude
      */
     protected $logs;
 

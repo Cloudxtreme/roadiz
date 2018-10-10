@@ -32,6 +32,7 @@ namespace RZ\Roadiz\Core\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use RZ\Roadiz\Core\Models\AbstractDocument;
 use RZ\Roadiz\Core\Models\DocumentInterface;
 use RZ\Roadiz\Core\Models\FolderInterface;
@@ -97,11 +98,13 @@ class Document extends AbstractDocument
     /**
      * @ORM\OneToOne(targetEntity="Document", inversedBy="downscaledDocument", cascade={"all"})
      * @ORM\JoinColumn(name="raw_document", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
      */
     protected $rawDocument = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Document", mappedBy="rawDocument")
+     * @Serializer\Exclude
      */
     private $downscaledDocument = null;
 
@@ -211,6 +214,7 @@ class Document extends AbstractDocument
     /**
      * @ORM\OneToMany(targetEntity="RZ\Roadiz\Core\Entities\NodesSourcesDocuments", mappedBy="document")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     protected $nodesSourcesByFields = null;
 
@@ -225,6 +229,7 @@ class Document extends AbstractDocument
     /**
      * @ORM\OneToMany(targetEntity="RZ\Roadiz\Core\Entities\TagTranslationDocuments", mappedBy="document")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     protected $tagTranslations = null;
 

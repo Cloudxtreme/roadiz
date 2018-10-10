@@ -59,6 +59,7 @@ use RZ\Roadiz\Core\Services\LoggerServiceProvider;
 use RZ\Roadiz\Core\Services\MailerServiceProvider;
 use RZ\Roadiz\Core\Services\RoutingServiceProvider;
 use RZ\Roadiz\Core\Services\SecurityServiceProvider;
+use RZ\Roadiz\Core\Services\SerializationServiceProvider;
 use RZ\Roadiz\Core\Services\SolrServiceProvider;
 use RZ\Roadiz\Core\Services\ThemeServiceProvider;
 use RZ\Roadiz\Core\Services\TranslationServiceProvider;
@@ -272,6 +273,7 @@ class Kernel implements ServiceProviderInterface, KernelInterface, RebootableInt
         $container->register(new LoggerServiceProvider());
         $container->register(new BagsServiceProvider());
         $container->register(new FactoryServiceProvider());
+        $container->register(new SerializationServiceProvider());
         if ($this->isDebug()) {
             $container->register(new DebugServiceProvider());
         }

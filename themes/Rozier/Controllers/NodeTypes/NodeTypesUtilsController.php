@@ -31,6 +31,7 @@
 
 namespace Themes\Rozier\Controllers\NodeTypes;
 
+use JMS\Serializer\Serializer;
 use RZ\Roadiz\Core\Entities\NodeType;
 use RZ\Roadiz\Core\Entities\NodeTypeField;
 use RZ\Roadiz\Core\Handlers\NodeTypeHandler;
@@ -62,21 +63,28 @@ class NodeTypesUtilsController extends RozierApp
         /** @var NodeType $nodeType */
         $nodeType = $this->get('em')->find(NodeType::class, (int) $nodeTypeId);
 
-        $serializer = new NodeTypeJsonSerializer();
-
+       /* $serializer = new NodeTypeJsonSerializer();
         $response = new Response(
             $serializer->serialize($nodeType),
             Response::HTTP_OK,
             []
-        );
+        );*/
 
-        $response->headers->set(
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
+
+        $response = new Response(
+            $serializer->serialize($nodeType, 'json'),
+            Response::HTTP_OK,
+            []
+        );
+        /*$response->headers->set(
             'Content-Disposition',
             $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $nodeType->getName() . '.rzt'
             )
-        ); // Rezo-Zero Type
+        ); */
         $response->prepare($request);
 
         return $response;

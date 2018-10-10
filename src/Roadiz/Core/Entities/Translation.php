@@ -31,6 +31,7 @@ namespace RZ\Roadiz\Core\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use RZ\Roadiz\Core\AbstractEntities\AbstractDateTimed;
 use RZ\Roadiz\Utils\StringHandler;
 
@@ -52,6 +53,7 @@ class Translation extends AbstractDateTimed
      * Associates locales to pretty languages names.
      *
      * @var array
+     * @Serializer\Exclude
      */
     public static $availableLocales = [
         'af_NA' => "Afrikaans (Namibia)",
@@ -620,6 +622,7 @@ class Translation extends AbstractDateTimed
     /**
      * @ORM\OneToMany(targetEntity="NodesSources", mappedBy="translation", orphanRemoval=true, fetch="EXTRA_LAZY")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     private $nodeSources = null;
     /**
@@ -633,6 +636,7 @@ class Translation extends AbstractDateTimed
     /**
      * @ORM\OneToMany(targetEntity="TagTranslation", mappedBy="translation", orphanRemoval=true, fetch="EXTRA_LAZY")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     private $tagTranslations = null;
     /**
@@ -646,6 +650,7 @@ class Translation extends AbstractDateTimed
     /**
      * @ORM\OneToMany(targetEntity="DocumentTranslation", mappedBy="translation", orphanRemoval=true, fetch="EXTRA_LAZY")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     protected $documentTranslations;
     /**

@@ -29,6 +29,7 @@
  */
 namespace RZ\Roadiz\Core\Services;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
@@ -173,6 +174,11 @@ class DoctrineServiceProvider implements ServiceProviderInterface
     {
         $container['em.config'] = function (Container $c) {
             try {
+                /*
+                 * This fixes Annotation not found
+                 * The annotation "@JMS\Serializer\Annotation\Exclude" does not exist, or could not be auto-loaded.
+                 */
+                AnnotationRegistry::registerLoader('class_exists');
                 /** @var Kernel $kernel */
                 $kernel = $c['kernel'];
                 $cache = null;

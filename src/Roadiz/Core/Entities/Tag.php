@@ -32,6 +32,7 @@ namespace RZ\Roadiz\Core\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use RZ\Roadiz\Core\AbstractEntities\AbstractDateTimedPositioned;
 use RZ\Roadiz\Core\AbstractEntities\LeafInterface;
 use RZ\Roadiz\Core\AbstractEntities\LeafTrait;
@@ -157,6 +158,7 @@ class Tag extends AbstractDateTimedPositioned implements LeafInterface
      * @ORM\ManyToMany(targetEntity="Node", mappedBy="tags")
      * @ORM\JoinTable(name="nodes_tags")
      * @var ArrayCollection
+     * @Serializer\Exclude
      */
     private $nodes = null;
     /**
@@ -191,6 +193,7 @@ class Tag extends AbstractDateTimedPositioned implements LeafInterface
      * @ORM\ManyToOne(targetEntity="Tag", inversedBy="children", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="parent_tag_id", referencedColumnName="id", onDelete="CASCADE")
      * @var Tag
+     * @Serializer\Exclude
      */
     protected $parent;
 
